@@ -69,6 +69,7 @@ public class ApiCaller {
             for (int i = 0; i < CitiesWeatherForecast.MAX_NB_OF_DATA; i++) {
                 tmpJSON = tmpArray.getJSONObject(i);
                 forecast[i] = new InstantCityWeather(tmpJSON.getJSONArray("weather").getJSONObject(0).getInt("id"),
+                        tmpJSON.getJSONArray("weather").getJSONObject(0).getString("description"),
                         tmpJSON.getJSONObject("main").getInt("temp"),
                         tmpJSON.getJSONObject("main").getInt("humidity"),
                         tmpJSON.getJSONObject("wind").getDouble("speed"),

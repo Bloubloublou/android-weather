@@ -8,7 +8,6 @@ public enum WeatherEnum {
     DRIZZLE(300,321),
     RAIN(500,531),
     SNOW(600,622),
-    ATMOSPHERE(700,781),
     CLEAR(800,800),
     CLOUDS(801,804);
 
@@ -24,5 +23,28 @@ public enum WeatherEnum {
     WeatherEnum(int minId, int maxId) {
         this.minId = minId;
         this.maxId = maxId;
+    }
+
+    public WeatherEnum getWeather(int id) {
+        int firstDigit = id / 100;
+
+        switch (firstDigit) {
+            case 2:
+                return THUNDERSTORM;
+            case 3:
+                return DRIZZLE;
+            case 5:
+                return RAIN;
+            case 6:
+                return SNOW;
+            case 8:
+                if(id == 800) {
+                    return CLEAR;
+                } else {
+                    return CLOUDS;
+                }
+            default:
+                return CLEAR;
+        }
     }
 }

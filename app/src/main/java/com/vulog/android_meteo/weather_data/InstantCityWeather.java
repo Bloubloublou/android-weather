@@ -4,6 +4,7 @@ import java.util.Calendar;
 
 public class InstantCityWeather {
     private int weather;
+    private String weatherDescription;
     // we get the temperature in kelvin since the api give us this metrics by default. It's more efficient to
     // re-compute new temperatures by hand than making an api call each time the user wants to switch temperature unit
     private int kelvinTemperature;
@@ -15,8 +16,9 @@ public class InstantCityWeather {
     //private Calendar sunrise;
     //private Calendar sunset;
 
-    public InstantCityWeather(int weather, int kelvinTemperature, int humidity, double windSpeed, int pressure) {
+    public InstantCityWeather(int weather, String weatherDescription, int kelvinTemperature, int humidity, double windSpeed, int pressure) {
         this.weather = weather;
+        this.weatherDescription = weatherDescription;
         this.kelvinTemperature = kelvinTemperature;
         this.humidity = humidity;
         this.windSpeed = (int)Math.round(windSpeed);
@@ -53,5 +55,9 @@ public class InstantCityWeather {
 
     public int getPressure() {
         return pressure;
+    }
+
+    public String getWeatherDescription() {
+        return weatherDescription;
     }
 }
