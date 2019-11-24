@@ -16,7 +16,7 @@ public class UserPrefs {
     /**
      * This application's preferences label
      */
-    private static final String PREFS_NAME = "com.vulog.userprefs";
+    private static final String PREFS_NAME = "com.weather.userprefs";
 
     /**
      * The prefix for flattened user keys

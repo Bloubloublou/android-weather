@@ -7,6 +7,8 @@ public class InstantCityWeather {
     private String weatherDescription;
     // we get the temperature in kelvin since the api give us this metrics by default. It's more efficient to
     // re-compute new temperatures by hand than making an api call each time the user wants to switch temperature unit
+
+    // TODO set as double
     private int kelvinTemperature;
     private int humidity;
     private int windSpeed;

@@ -16,6 +16,7 @@ import java.net.URL;
 import java.util.Set;
 
 public class ApiCaller {
+    // TODO no need for static
     private static final String API_KEY = "7b5e590c39152ca6c17f04f0c32fd980";
     private static final String FORECAST_WEATHER = "http://api.openweathermap.org/data/2.5/forecast?q=%s&APPID=" + API_KEY;
 
