@@ -1,5 +1,6 @@
 package com.vulog.android_meteo;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.vulog.android_meteo.weather_data.CitiesWeatherForecast;
@@ -10,6 +11,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -20,12 +23,20 @@ public class ApiCaller {
     private static final String API_KEY = "7b5e590c39152ca6c17f04f0c32fd980";
     private static final String FORECAST_WEATHER = "http://api.openweathermap.org/data/2.5/forecast?q=%s&APPID=" + API_KEY;
 
+    private Context context;
+
+    public ApiCaller(Context context) {
+        this.context = context;
+    }
+
     /**
      * Getting datas from api for according cities
      *
      * @param cities the cities we need
      */
-    public void updateForecasts(Set<String> cities) {
+    public boolean updateForecasts(Set<String> cities) {
+        Log.d("HENLO","update forcast");
+
         for (String city : cities) {
             try {
                 // request to api for forecast
@@ -48,11 +59,19 @@ public class ApiCaller {
                 if (data.getInt("cod") == 200) {
                     Log.d("RESPONSE_IS", data.toString());
                     CitiesWeatherForecast.getInstance().putForecast(city, jsonToForeCast(data));
+                } else {
+                    Log.d("RESPONSE_IS", data.toString());
+                    return false;
                 }
+            } catch (FileNotFoundException e) {
+                UserPrefs.getInstance(context).removeCity(city);
             } catch (Exception e) {
                 Log.d("RESPONSE_IS", e.toString());
+                return false;
             }
         }
+
+        return true;
     }
 
     /**
