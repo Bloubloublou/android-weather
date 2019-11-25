@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">android-meteo</string>
+    <string name="xx_xx">XX:XX</string>
+    <string name="a_city_name">A city name</string>
+    <string name="xxx">XXX°</string>
+    <string name="switch_to_fahrenheit">Switch to FahrenHeit</string>
+    <string name="switch_to_celsius">Switch to Celsius</string>
+    <string name="enter_city_name">Enter city name</string>
+    <string name="cancel">Cancel</string>
+    <string name="search">Search</string>
 </resources>
