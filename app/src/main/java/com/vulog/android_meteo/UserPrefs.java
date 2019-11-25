@@ -2,6 +2,7 @@ package com.vulog.android_meteo;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,7 +17,7 @@ public class UserPrefs {
     /**
      * This application's preferences label
      */
-    private static final String PREFS_NAME = "com.vulog.userprefs";
+    private static final String PREFS_NAME = "com.weather.userprefs";
 
     /**
      * The prefix for flattened user keys
@@ -27,6 +28,7 @@ public class UserPrefs {
      * generic field keys
      */
     private static final String KEY_CITIES = KEY_PREFIX + "_CITIES";
+    private static final String KEY_DEGREE = KEY_PREFIX + "_IS_METRIC";
 
     /**
      * This application's preferences
@@ -51,6 +53,7 @@ public class UserPrefs {
         //writing immediately changes
         SharedPreferences.Editor editor = settings.edit();
         editor.putStringSet(KEY_CITIES, new HashSet<String>());
+        editor.putBoolean(KEY_DEGREE, true);
         editor.apply();
     }
 
@@ -65,8 +68,26 @@ public class UserPrefs {
     }
 
     public void addCity(String city) {
-        Set<String> cities = getCities();
+        //calling hashset init for making a copy and not a refrence. This avoid strange behaviors of sharedpreferences
+        Set<String> cities = new HashSet<>(getCities());
         cities.add(city);
         setCities(cities);
+    }
+
+    public void removeCity(String city) {
+        //calling hashset init for making a copy and not a refrence. This avoid strange behaviors of sharedpreferences
+        Set<String> cities = new HashSet<>(getCities());
+        cities.remove(city);
+        setCities(cities);
+    }
+
+    public void setIsMetric(boolean isMetric) {
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(KEY_DEGREE, isMetric);
+        editor.apply();
+    }
+
+    public boolean isMetric() {
+        return settings.getBoolean(KEY_DEGREE, true);
     }
 }

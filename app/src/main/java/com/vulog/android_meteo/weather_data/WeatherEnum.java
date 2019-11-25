@@ -1,31 +1,29 @@
 package com.vulog.android_meteo.weather_data;
 
+import com.vulog.android_meteo.R;
+
 /**
  * Enum which defines big families of weather.
  */
 public enum WeatherEnum {
-    THUNDERSTORM(200,232),
-    DRIZZLE(300,321),
-    RAIN(500,531),
-    SNOW(600,622),
-    CLEAR(800,800),
-    CLOUDS(801,804);
+    THUNDERSTORM(R.drawable.thunder),
+    DRIZZLE(R.drawable.drizzle),
+    RAIN(R.drawable.rainy),
+    SNOW(R.drawable.snowy),
+    CLEAR(R.drawable.bluesky),
+    CLOUDS(R.drawable.cloudy);
 
-    private int minId;
-    private int maxId;
+    private int drawableId;
 
     /**
-     * Defining a weather enum according to min and max ids, which are defined on the api.
-     * Check this as reference https://openweathermap.org/weather-conditions
-     * @param minId the min id
-     * @param maxId the max id
+     * Creating the enum
+     * @param drawableId the drawable id of the image associated with the weather enum
      */
-    WeatherEnum(int minId, int maxId) {
-        this.minId = minId;
-        this.maxId = maxId;
+    WeatherEnum(int drawableId) {
+        this.drawableId = drawableId;
     }
 
-    public WeatherEnum getWeather(int id) {
+    public static WeatherEnum getWeather(int id) {
         int firstDigit = id / 100;
 
         switch (firstDigit) {
@@ -46,5 +44,9 @@ public enum WeatherEnum {
             default:
                 return CLEAR;
         }
+    }
+
+    public int getDrawableId() {
+        return drawableId;
     }
 }
