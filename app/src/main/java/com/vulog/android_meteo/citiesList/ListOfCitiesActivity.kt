@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.ListView
 import com.vulog.android_meteo.ApiCaller
 import com.vulog.android_meteo.R
@@ -29,7 +28,6 @@ class ListOfCitiesActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        Log.d("HENLO","0")
         updateView()
     }
 
@@ -49,22 +47,15 @@ class ListOfCitiesActivity : AppCompatActivity() {
     }
 
     fun updateView() {
-        Log.d("HENLO","1")
-        Log.d("HENLO","length ${UserPrefs.getInstance(this).cities.size}")
-
         val t = Thread(Runnable {
             apiCaller.updateForecasts(UserPrefs.getInstance(this).cities)
         })
         t.start()
         t.join()  // wait for thread to finish
 
-        Log.d("HENLO","2")
         val cityList = getCityRows()
-        Log.d("HENLO","3")
         val adapter = CityAdapter(this,cityList)
-        Log.d("HENLO","4")
         listView.adapter = adapter
-        Log.d("HENLO","5")
 
         listView.setOnItemClickListener { _, _, position, _ ->
             val selectedRecipe = cityList[position]
