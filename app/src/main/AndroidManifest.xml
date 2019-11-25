@@ -13,8 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".citiesList.AddCityActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".citiesList.ListOfCitiesActivity" android:screenOrientation="portrait">
+        <activity android:name=".detailled.DetailledActivity"></activity>
+        <activity
+            android:name=".citiesList.AddCityActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".citiesList.ListOfCitiesActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

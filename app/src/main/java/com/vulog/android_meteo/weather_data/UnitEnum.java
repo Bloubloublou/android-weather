@@ -5,6 +5,9 @@ package com.vulog.android_meteo.weather_data;
  */
 public enum UnitEnum {
     IMPERIAL,
-    METRIC,
-    STANDARD;
+    METRIC;
+
+    public static UnitEnum getUnit(boolean isMetric) {
+        return isMetric ? METRIC : IMPERIAL;
+    }
 }

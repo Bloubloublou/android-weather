@@ -8,6 +8,7 @@ import android.widget.ListView
 import com.vulog.android_meteo.ApiCaller
 import com.vulog.android_meteo.R
 import com.vulog.android_meteo.UserPrefs
+import com.vulog.android_meteo.detailled.DetailledActivity
 import com.vulog.android_meteo.weather_data.CitiesWeatherForecast
 import com.vulog.android_meteo.weather_data.UnitEnum
 import com.vulog.android_meteo.weather_data.WeatherEnum
@@ -36,11 +37,12 @@ class ListOfCitiesActivity : AppCompatActivity() {
 
         val cityNames = UserPrefs.getInstance(this).cities
         val citiesWeatherForecast = CitiesWeatherForecast.getInstance()
+        val unit:UnitEnum = UnitEnum.getUnit(UserPrefs.getInstance(this).isMetric)
         for (cityName in cityNames) {
             result.add(CityRowObject(cityName,
                     WeatherEnum.getWeather(citiesWeatherForecast.getForecast(cityName)[0].weather),
                     citiesWeatherForecast.getForecast(cityName)[0].weatherDescription,
-                    citiesWeatherForecast.getForecast(cityName)[0].getTemperatureInUnit(UnitEnum.METRIC)))
+                    citiesWeatherForecast.getForecast(cityName)[0].getTemperatureInUnit(unit)))
         }
 
         return result
@@ -58,10 +60,9 @@ class ListOfCitiesActivity : AppCompatActivity() {
         listView.adapter = adapter
 
         listView.setOnItemClickListener { _, _, position, _ ->
-            val selectedRecipe = cityList[position]
-            // TODO go to the detailled view
-            /*val detailIntent = RecipeDetailActivity.newIntent(context, selectedRecipe)
-            startActivity(detailIntent)*/
+            val city = cityList[position].name
+            val detailIntent = DetailledActivity.newIntent(this,city)
+            startActivity(detailIntent)
         }
     }
 
