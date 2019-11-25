@@ -8,4 +8,10 @@
     <string name="enter_city_name">Enter city name</string>
     <string name="cancel">Cancel</string>
     <string name="search">Search</string>
+    <string name="weather_description">weather description</string>
+    <string name="name_of_city">Name of city</string>
+    <string name="day_of_week">DAY OF WEEK</string>
+    <string name="xxx_">XXX</string>
+    <string name="pressure">Pressure</string>
+    <string name="humidity">Humidity</string>
 </resources>
