@@ -38,13 +38,18 @@ class CityAdapter(private val context: Context,
 
             val switchingText = view.findViewById<TextView>(R.id.switch_degree)
             switchingText.setOnClickListener(View.OnClickListener {
-                val isMetric = UserPrefs.getInstance(context).isMetric
-                UserPrefs.getInstance(context).setIsMetric(!isMetric)
-                if(isMetric) {
-                    switchingText.setText(R.string.switch_to_celsius)
-                } else {
-                    switchingText.setText(R.string.switch_to_fahrenheit)
-                }
+                Thread(Runnable {
+                    val t = Thread(Runnable {
+                        val isMetric = UserPrefs.getInstance(context).isMetric
+                        UserPrefs.getInstance(context).setIsMetric(!isMetric)
+                    })
+                    t.start()
+                    t.join()
+
+                    (context as ListOfCitiesActivity).runOnUiThread(Runnable {
+                        context.updateView()
+                    })
+                }).start()
             })
 
             view.findViewById<ImageView>(R.id.add_city).setOnClickListener(View.OnClickListener {

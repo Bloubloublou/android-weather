@@ -48,6 +48,7 @@
             android:backgroundTint="@color/white"
             android:imeOptions="actionSearch"
             android:lines="1"
-            android:inputType="text"/>
+            android:inputType="text"
+            android:textColorHint="@color/dark_grey"/>
     </RelativeLayout>
 </RelativeLayout>

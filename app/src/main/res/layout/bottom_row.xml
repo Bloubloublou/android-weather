@@ -10,9 +10,9 @@
         android:id="@+id/switch_degree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/switch_to_fahrenheit"
+        android:text="°C / °F"
         android:textColor="@color/white"
-        android:textSize="12sp"
+        android:textSize="22sp"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:layout_marginStart="20dp"/>

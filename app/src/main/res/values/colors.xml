@@ -15,6 +15,7 @@
     <color name="darker_blue">#140F26</color>
     <color name="darker_blue_alpha">#DD140F26</color>
     <color name="black">#000000</color>
+    <color name="blackTransparent">#AA000000</color>
     <color name="vivid_red">#FF3B00</color>
     <color name="red">#FF1501</color>
     <color name="yellow">#FAC32F</color>
