@@ -49,12 +49,7 @@ class ListOfCitiesActivity : AppCompatActivity() {
     }
 
     fun updateView() {
-        val t = Thread(Runnable {
-            apiCaller.updateForecasts(UserPrefs.getInstance(this).cities)
-        })
-        t.start()
-        t.join()  // wait for thread to finish
-
+        apiCaller.updateForecasts(UserPrefs.getInstance(this).cities)
         val cityList = getCityRows()
         val adapter = CityAdapter(this,cityList)
         listView.adapter = adapter

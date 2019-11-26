@@ -21,7 +21,7 @@ import java.util.Set;
 public class ApiCaller {
     // TODO no need for static
     private static final String API_KEY = "7b5e590c39152ca6c17f04f0c32fd980";
-    private static final String FORECAST_WEATHER = "http://api.openweathermap.org/data/2.5/forecast?q=%s&APPID=" + API_KEY;
+    private static final String FORECAST_WEATHER = "https://api.openweathermap.org/data/2.5/forecast?q=%s&APPID=" + API_KEY;
 
     private Context context;
 
@@ -34,44 +34,47 @@ public class ApiCaller {
      *
      * @param cities the cities we need
      */
-    public boolean updateForecasts(Set<String> cities) {
-        Log.d("HENLO","update forcast");
+    public void updateForecasts(Set<String> cities) {
+        for (final String city : cities) {
+                final Thread t = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            URL url = new URL(String.format(FORECAST_WEATHER, city));
+                            HttpURLConnection connection =
+                                    (HttpURLConnection) url.openConnection();
 
-        for (String city : cities) {
+                            BufferedReader reader = new BufferedReader(
+                                    new InputStreamReader(connection.getInputStream()));
+
+                            StringBuffer json = new StringBuffer(1024);
+                            String tmp;
+                            while ((tmp = reader.readLine()) != null)
+                                json.append(tmp).append("\n");
+                            reader.close();
+
+                            JSONObject data = new JSONObject(json.toString());
+                            // if everything went ok, extract needed data from json
+                            if (data.getInt("cod") == 200) {
+                                CitiesWeatherForecast.getInstance().putForecast(city, jsonToForeCast(data));
+                            } else {
+                                Log.d("RESPONSE_IS", data.toString());
+                            }
+                        } catch (FileNotFoundException e) {
+                            UserPrefs.getInstance(context).removeCity(city);
+                            Log.e("EXCEPTION",e.toString());
+                        } catch (Exception e) {
+                            Log.d("RESPONSE_IS", e.toString());
+                        }
+                    }
+                });
+                t.start();
             try {
-                // request to api for forecast
-                URL url = new URL(String.format(FORECAST_WEATHER, city));
-                HttpURLConnection connection =
-                        (HttpURLConnection) url.openConnection();
-
-                BufferedReader reader = new BufferedReader(
-                        new InputStreamReader(connection.getInputStream()));
-
-                StringBuffer json = new StringBuffer(1024);
-                String tmp;
-                while ((tmp = reader.readLine()) != null)
-                    json.append(tmp).append("\n");
-                reader.close();
-
-                JSONObject data = new JSONObject(json.toString());
-
-                // if everything went ok, extract needed data from json
-                if (data.getInt("cod") == 200) {
-                    Log.d("RESPONSE_IS", data.toString());
-                    CitiesWeatherForecast.getInstance().putForecast(city, jsonToForeCast(data));
-                } else {
-                    Log.d("RESPONSE_IS", data.toString());
-                    return false;
-                }
-            } catch (FileNotFoundException e) {
-                UserPrefs.getInstance(context).removeCity(city);
-            } catch (Exception e) {
-                Log.d("RESPONSE_IS", e.toString());
-                return false;
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
-
-        return true;
     }
 
     /**
