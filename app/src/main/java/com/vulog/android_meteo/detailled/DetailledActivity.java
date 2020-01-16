@@ -26,6 +26,9 @@ import java.util.Locale;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * This activity shows the detail information of a peculiar city
+ */
 public class DetailledActivity extends AppCompatActivity {
 
     @Override

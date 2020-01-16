@@ -14,7 +14,9 @@ import com.vulog.android_meteo.weather_data.UnitEnum
 import com.vulog.android_meteo.weather_data.WeatherEnum
 
 
-
+/**
+ * This activity shows the different cities the user chose to follow.
+ */
 class ListOfCitiesActivity : AppCompatActivity() {
 
     private lateinit var listView: ListView

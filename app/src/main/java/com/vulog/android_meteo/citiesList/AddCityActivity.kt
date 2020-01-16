@@ -11,7 +11,10 @@ import android.content.Intent
 import android.widget.ImageButton
 import com.vulog.android_meteo.R
 
-
+/**
+ * This activity allows the user to search for a city. When the user clicks on the search button, we go
+ * back to the city list acitivity ; if the city is found it is displayed, otherwise it won't show.
+ */
 class AddCityActivity : AppCompatActivity() {
 
     private lateinit var cancelButton: TextView
